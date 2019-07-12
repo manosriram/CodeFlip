@@ -1,0 +1,15 @@
+{
+  "name": "flipcard",
+  "version": "1.0.0",
+  "description": "Flip Code one at a Time.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "A.Mano Sriram",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
