@@ -18,6 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { Link, BrowserRouter } from "react-router-dom";
+import SvgIcon from "@material-ui/core/SvgIcon";
 const Cookie = require("js-cookie");
 const drawerWidth = 240;
 
@@ -29,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    })
+    }),
+    background: "black"
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -74,8 +76,19 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  icon: {
+    marginRight: "25px"
   }
 }));
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 const Navbar = props => {
   const classes = useStyles();
@@ -152,15 +165,20 @@ const Navbar = props => {
         )}
         {!logStat && (
           <List>
-            {["Login", "Register"].map((text, index) => (
+            {["Home", "Login", "Register"].map((text, index) => (
               <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+                {text === "Home" ? (
+                  <HomeIcon className={classes.icon} />
+                ) : (
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                )}
                 <ListItemText
                   primary={text}
                   onClick={() => {
                     let fv = text.toLowerCase();
+                    if (fv === "home") fv = "";
                     props.history.push(`/${fv}`);
                   }}
                 />
