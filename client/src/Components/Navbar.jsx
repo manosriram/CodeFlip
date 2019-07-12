@@ -19,6 +19,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { Link, BrowserRouter } from "react-router-dom";
 import SvgIcon from "@material-ui/core/SvgIcon";
+
 const Cookie = require("js-cookie");
 const drawerWidth = 240;
 

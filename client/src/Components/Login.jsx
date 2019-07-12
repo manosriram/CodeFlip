@@ -24,17 +24,30 @@ const useStyles = makeStyles(theme => ({
 
 const Login = () => {
   const classes = useStyles();
+  const [userData, setUserData] = React.useState({});
+
+  const handleChange = e => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
       <Container className={classes.cont}>
         <Container className={classes.cont}>
           <Paper className={classes.root} id="paper">
-            <form>
-              <StyledInput type="text" placeholder="Email Address." />
+            <form onChange={handleChange}>
+              <StyledInput
+                type="text"
+                placeholder="Email Address."
+                name="email"
+              />
               <br />
               <br />
-              <StyledInput type="password" placeholder="Password" />
+              <StyledInput
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
               <br />
               <br />
               <Button
