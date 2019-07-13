@@ -3,6 +3,7 @@ import { Container, Typography, makeStyles, Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { StyledInput } from "../Styles/StyledComp";
 import "../Styles/App.css";
+import Headers from "../Header";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +29,18 @@ const Register = () => {
 
   const handleChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const resp = await fetch("/auth/register", {
+      method: "POST",
+      headers: Headers.headers,
+      body: JSON.stringify({ userData })
+    });
+    const data = await resp.json();
+    console.log(data);
   };
 
   return (
@@ -61,6 +74,7 @@ const Register = () => {
                 variant="contained"
                 color="primary"
                 className={classes.button}
+                onClick={handleSubmit}
               >
                 Register
               </Button>

@@ -30,6 +30,10 @@ const Login = () => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async e => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Container className={classes.cont}>
