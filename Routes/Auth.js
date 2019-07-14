@@ -19,16 +19,26 @@ router.post("/register", (req, res) => {
   if (!username || username.length < 3)
     return res.json({ success: false, message: "Username too short." });
 
-  const det = { username: username, email: email, password: password };
-  let qry = "INSERT INTO USER(username, email, password) VALUES(?, ?, ?))";
-  db.query(qry, det, (err, rest) => {
+  let vls = {
+    username: `${username}`,
+    email: `${email}`,
+    password: `${password}`
+  };
+  let qry = "INSERT INTO USER SET ?";
+
+  db.query(qry, vls, (err, rest) => {
     if (!err) {
       return res.json({
         success: true,
         message: "User succesfully Registered."
       });
     } else {
-      console.log(err);
+      if (err.sqlState === 23000) {
+        return res.json({
+          success: false,
+          message: "User Already Registered."
+        });
+      }
     }
   });
 });
