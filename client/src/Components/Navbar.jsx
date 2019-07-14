@@ -197,6 +197,7 @@ const Navbar = props => {
                     let fv = text.toLowerCase();
                     if (fv === "home") fv = "";
                     props.history.push(`/${fv}`);
+                    handleDrawerClose();
                   }}
                 />
               </ListItem>

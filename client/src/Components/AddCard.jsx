@@ -4,7 +4,6 @@ import Paper from "@material-ui/core/Paper";
 import "../Styles/App.css";
 import { StyledInput, StyledTextArea } from "../Styles/StyledComp";
 import Headers from "../Header";
-import { METHODS } from "http";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +32,6 @@ const AddCard = props => {
     const getUserInfo = async () => {
       const resp = await fetch("/auth/getUserInfo");
       const res = await resp.json();
-      console.log(res);
       setUserData(res);
     };
 
@@ -56,6 +54,8 @@ const AddCard = props => {
       setMessage(data.message);
     };
     sendData();
+    setCardData({});
+    document.getElementById("frm").reset();
   };
 
   if (isSpinning) {
@@ -71,7 +71,7 @@ const AddCard = props => {
       <Container className={classes.cont}>
         <h3>{message}</h3>
         <Paper className={classes.root} id="paper">
-          <form onChange={handleChange}>
+          <form onChange={handleChange} id="frm">
             <br />
             <StyledInput type="text" placeholder="Title" name="title" />
             <br />
@@ -86,11 +86,31 @@ const AddCard = props => {
             />
             <br />
             <br />
+            <select name="language" id="lng">
+              <option value="javascript">Javascript</option>
+              <option value="c++">C++</option>
+              <option value="c">C</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="lisp">Lisp</option>
+              <option value="c#">C#</option>
+              <option value="php">PHP</option>
+              <option value="swift">Swift</option>
+              <option value="perl">Perl</option>
+              <option value="ruby">Ruby</option>
+              <option value="erlang">Erlang</option>
+              <option value="matlab">MatLab</option>
+              <option value="curl">Curl</option>
+              <option value="html">HTML</option>
+            </select>
+            <br />
+            <br />
             <Button
               variant="contained"
               color="primary"
               className={classes.button}
               onClick={handleSubmit}
+              id="btn"
             >
               Add Card
             </Button>

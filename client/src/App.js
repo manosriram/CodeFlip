@@ -5,6 +5,7 @@ import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import AddCard from "./Components/AddCard";
+import ShowCards from "./Components/ShowCards";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/addCard" component={AddCard} />
+      <Route exact path="/showCards" component={ShowCards} />
     </BrowserRouter>
   );
 };
