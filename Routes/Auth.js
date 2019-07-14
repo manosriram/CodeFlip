@@ -8,6 +8,16 @@ const validateEmail = email => {
   return re.test(email);
 };
 
+router.get("/getUserInfo", (req, res) => {
+  jsonwt.verify(req.cookies.scTk, "sec1234", (err, user) => {
+    if (!user) {
+      return res.json({ success: false });
+    } else {
+      return res.json({ success: true, user });
+    }
+  });
+});
+
 router.get("/isLoggedIn", (req, res) => {
   jsonwt.verify(req.cookies.scTk, "sec1234", (err, user) => {
     if (!user) {

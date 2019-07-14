@@ -41,13 +41,14 @@ const Login = props => {
       body: JSON.stringify({ userData })
     });
     const data = await resp.json();
-    data.success ? (window.location = "/") : console.log(data);
+    data.success ? (window.location = "/") : setMessage(data.message);
   };
 
   return (
     <>
       <Container className={classes.cont}>
         <Container className={classes.cont}>
+          <h4>{message}</h4>
           <Paper className={classes.root} id="paper">
             <form onChange={handleChange}>
               <StyledInput

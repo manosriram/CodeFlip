@@ -12,4 +12,14 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const Cont = styled.div``;
+export const StyledTextArea = styled.textarea`
+  font-size: 2.4vh;
+  border: solid;
+  resize: horizontal;
+  outline: none;
+
+  &::placeholder {
+    font-size: 3vh;
+    text-align: center;
+  }
+`;
