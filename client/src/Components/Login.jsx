@@ -3,6 +3,7 @@ import { Container, Typography, makeStyles, Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { StyledInput } from "../Styles/StyledComp";
 import "../Styles/App.css";
+import Headers from "../Header";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,9 +23,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = () => {
+const Login = props => {
   const classes = useStyles();
   const [userData, setUserData] = React.useState({});
+  const [message, setMessage] = React.useState("");
 
   const handleChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -32,6 +34,14 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    const resp = await fetch("/auth/login", {
+      method: "POST",
+      headers: Headers.headers,
+      body: JSON.stringify({ userData })
+    });
+    const data = await resp.json();
+    data.success ? (window.location = "/") : console.log(data);
   };
 
   return (
@@ -58,6 +68,7 @@ const Login = () => {
                 variant="contained"
                 color="primary"
                 className={classes.button}
+                onClick={handleSubmit}
               >
                 Login
               </Button>

@@ -4,6 +4,7 @@ import Index from "./Components/Index";
 import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
+import AddCard from "./Components/AddCard";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Route exact path="/" component={Index} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/addCard" component={AddCard} />
     </BrowserRouter>
   );
 };

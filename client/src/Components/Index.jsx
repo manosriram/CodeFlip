@@ -1,18 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import "../Styles/App.css";
 
 const Index = () => {
-  return (
-    <>
-      <Container>
-        <h3>
-          Welcome to Flip-Code. <Link to="/login">Login</Link> or{" "}
-          <Link to="/register">Register</Link> to Get Started.
-        </h3>
-      </Container>
-    </>
-  );
+  const [loginStat, setLoginStat] = React.useState(false);
+  const [isSpinning, setSpinner] = React.useState(true);
+
+  useEffect(() => {
+    const getLoginStat = async () => {
+      const resp = await fetch("/auth/isLoggedIn");
+      const res = await resp.json();
+      setLoginStat(res.success);
+    };
+
+    getLoginStat();
+    setSpinner(false);
+  }, []);
+
+  if (isSpinning) {
+    return (
+      <div className="spinner-border" role="status" id="spinner">
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
+  }
+
+  if (!loginStat) {
+    return (
+      <>
+        <Container>
+          <h3>
+            Welcome to Flip-Code.{" "}
+            <Link to="/login" id="lnk">
+              Login
+            </Link>{" "}
+            or{" "}
+            <Link id="lnk" to="/register">
+              Register
+            </Link>{" "}
+            to Get Started.
+          </h3>
+        </Container>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Container>
+          <h3>Welcome !</h3>
+        </Container>
+      </>
+    );
+  }
 };
 
 export default Index;

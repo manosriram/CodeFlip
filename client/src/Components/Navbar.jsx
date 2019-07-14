@@ -98,10 +98,15 @@ const Navbar = props => {
   const [logStat, setLogStat] = React.useState(false);
 
   React.useEffect(() => {
-    if (Cookie.get("auth_t")) {
+    if (Cookie.get("scTk")) {
       setLogStat(true);
     }
   }, []);
+
+  const Logout = () => {
+    Cookie.remove("scTk");
+    window.location = "/";
+  };
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -111,7 +116,6 @@ const Navbar = props => {
     setOpen(false);
   }
 
-  const handleChangeProp = text => {};
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -159,7 +163,19 @@ const Navbar = props => {
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText
+                  primary={text}
+                  onClick={() => {
+                    text = text.trim().toLowerCase();
+                    if (text === "add card") text = "addCard";
+                    else if (text === "show cards") text = "showCards";
+                    if (text !== "logout") {
+                      props.history.push(`/${text}`);
+                      handleDrawerClose();
+                    }
+                    if (text === "logout") Logout();
+                  }}
+                />
               </ListItem>
             ))}
           </List>

@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 const Register = () => {
   const classes = useStyles();
   const [userData, setUserData] = React.useState({});
+  const [message, setMessage] = React.useState("");
 
   const handleChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -33,20 +34,20 @@ const Register = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     const resp = await fetch("/auth/register", {
       method: "POST",
       headers: Headers.headers,
       body: JSON.stringify({ userData })
     });
     const data = await resp.json();
-    console.log(data);
+    setMessage(data.message);
   };
 
   return (
     <>
       <Container className={classes.cont}>
         <Container className={classes.cont}>
+          <h4>{message}</h4>
           <Paper className={classes.root} id="paper">
             <form onChange={handleChange}>
               <StyledInput
