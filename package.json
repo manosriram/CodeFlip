@@ -1,7 +1,7 @@
 {
-  "name": "flipcard",
+  "name": "codeflip",
   "version": "1.0.0",
-  "description": "Flip Code one at a Time.",
+  "description": "Flip Code, One at a Time.",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js"

@@ -50,7 +50,18 @@ const Index = () => {
     return (
       <>
         <Container>
-          <h3>Welcome !</h3>
+          <h3>Welcome to Code Flip !</h3>
+          <br />
+          <h4>
+            <Link to="/addCard" id="lnk">
+              Add
+            </Link>{" "}
+            a Card or View Look up your cards{" "}
+            <Link to="/showCards" id="lnk">
+              here
+            </Link>{" "}
+            !
+          </h4>
         </Container>
       </>
     );

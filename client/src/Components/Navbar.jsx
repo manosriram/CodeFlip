@@ -23,6 +23,40 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 const Cookie = require("js-cookie");
 const drawerWidth = 240;
 
+const loggedIcons = [
+  {
+    label: "home",
+    src: "https://img.icons8.com/ios-filled/50/000000/home-page.png"
+  },
+  {
+    label: "addCard",
+    src: "https://img.icons8.com/ios-filled/50/000000/add-column.png"
+  },
+  {
+    label: "showCards",
+    src: "https://img.icons8.com/ios-filled/50/000000/tv-show.png"
+  },
+  {
+    label: "logout",
+    src: "https://img.icons8.com/ios-filled/50/000000/logout-rounded-left.png"
+  }
+];
+
+const nonLoggedIcons = [
+  {
+    label: "home",
+    src: "https://img.icons8.com/ios-filled/50/000000/home-page.png"
+  },
+  {
+    label: "login",
+    src: "https://img.icons8.com/pastel-glyph/50/000000/login-rounded-right.png"
+  },
+  {
+    label: "register",
+    src: "https://img.icons8.com/ios-filled/50/000000/edit-user-male.png"
+  }
+];
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex"
@@ -158,17 +192,35 @@ const Navbar = props => {
         <Divider />
         {logStat && (
           <List>
-            {["Add Card", "Show Cards", "Logout"].map((text, index) => (
+            {["Home", "Add Card", "Show Cards", "Logout"].map((text, index) => (
               <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <ListItemIcon
+                  id="icn"
+                  onClick={() => {
+                    text = text.trim().toLowerCase();
+                    if (text === "add card") text = "addCard";
+                    else if (text === "show cards") text = "showCards";
+                    else if (text === "home") text = "";
+                    if (text !== "logout") {
+                      props.history.push(`/${text}`);
+                      handleDrawerClose();
+                    }
+                    if (text === "logout") Logout();
+                  }}
+                >
+                  <img
+                    src={loggedIcons[index].src}
+                    alt={loggedIcons[index].label}
+                  />
                 </ListItemIcon>
                 <ListItemText
+                  id="icnTxt"
                   primary={text}
                   onClick={() => {
                     text = text.trim().toLowerCase();
                     if (text === "add card") text = "addCard";
                     else if (text === "show cards") text = "showCards";
+                    else if (text === "home") text = "";
                     if (text !== "logout") {
                       props.history.push(`/${text}`);
                       handleDrawerClose();
@@ -184,14 +236,22 @@ const Navbar = props => {
           <List>
             {["Home", "Login", "Register"].map((text, index) => (
               <ListItem button key={text}>
-                {text === "Home" ? (
-                  <HomeIcon className={classes.icon} />
-                ) : (
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                )}
+                <ListItemIcon
+                  id="icn"
+                  onClick={() => {
+                    let fv = text.toLowerCase();
+                    if (fv === "home") fv = "";
+                    props.history.push(`/${fv}`);
+                    handleDrawerClose();
+                  }}
+                >
+                  <img
+                    src={nonLoggedIcons[index].src}
+                    alt={nonLoggedIcons[index].label}
+                  />
+                </ListItemIcon>
                 <ListItemText
+                  id="icnTxt"
                   primary={text}
                   onClick={() => {
                     let fv = text.toLowerCase();

@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require("../DB");
 const jsonwt = require("jsonwebtoken");
 
+router.get("/editCard", (req, res) => {});
+
 router.get("/showCards", (req, res) => {
   jsonwt.verify(req.cookies.scTk, "sec1234", (err, user) => {
     if (!user) {
