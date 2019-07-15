@@ -85,6 +85,7 @@ router.post("/login", (req, res) => {
   knex
     .raw(qry)
     .then(rest => {
+      console.log(rest[0]);
       if (rest[0].length > 0) {
         var payload = {
           username: rest[0][0].USERNAME,
