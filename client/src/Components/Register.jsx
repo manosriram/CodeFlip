@@ -72,6 +72,7 @@ const Register = () => {
               <br />
               <br />
               <Button
+                id="btn"
                 variant="contained"
                 color="primary"
                 className={classes.button}
