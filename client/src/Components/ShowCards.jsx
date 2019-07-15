@@ -58,59 +58,69 @@ const ShowCards = props => {
     );
   }
 
-  return (
-    <>
-      <Container className={classes.root}>
-        <div className={classes.root}>
-          <Paper square elevation={0} className={classes.header}>
-            <Typography>{cardData[activeStep].TITLE}</Typography>
-          </Paper>
-          <br />
-          <div id="cardCode">
-            <Highlight language={cardData[activeStep].LANGUAGE}>
-              {cardData[activeStep].CODE}
-            </Highlight>
+  if (cardData.length == 0)
+    return (
+      <>
+        <Container>
+          <h5>No Cards Yet.. 😕</h5>
+        </Container>
+      </>
+    );
+  else {
+    return (
+      <>
+        <Container className={classes.root}>
+          <div className={classes.root}>
+            <Paper square elevation={0} className={classes.header}>
+              <Typography>{cardData[activeStep].TITLE}</Typography>
+            </Paper>
+            <br />
+            <div id="cardCode">
+              <Highlight language={cardData[activeStep].LANGUAGE}>
+                {cardData[activeStep].CODE}
+              </Highlight>
+            </div>
+            <MobileStepper
+              variant="dots"
+              steps={maxSteps}
+              position="static"
+              activeStep={activeStep}
+              nextButton={
+                <Button
+                  id="btn"
+                  size="small"
+                  onClick={handleNext}
+                  disabled={activeStep === maxSteps - 1}
+                >
+                  Next
+                  {theme.direction === "rtl" ? (
+                    <KeyboardArrowLeft />
+                  ) : (
+                    <KeyboardArrowRight />
+                  )}
+                </Button>
+              }
+              backButton={
+                <Button
+                  id="btn"
+                  size="small"
+                  onClick={handleBack}
+                  disabled={activeStep === 0}
+                >
+                  {theme.direction === "rtl" ? (
+                    <KeyboardArrowRight />
+                  ) : (
+                    <KeyboardArrowLeft />
+                  )}
+                  Back
+                </Button>
+              }
+            />
           </div>
-          <MobileStepper
-            variant="dots"
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <Button
-                id="btn"
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
-                Next
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
-            backButton={
-              <Button
-                id="btn"
-                size="small"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                Back
-              </Button>
-            }
-          />
-        </div>
-      </Container>
-    </>
-  );
+        </Container>
+      </>
+    );
+  }
 };
 
 export default ShowCards;

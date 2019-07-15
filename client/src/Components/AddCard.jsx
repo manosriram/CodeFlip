@@ -44,6 +44,7 @@ const AddCard = props => {
   };
 
   const handleSubmit = e => {
+    setMessage("");
     const sendData = async () => {
       const resp = await fetch("/card/addCard", {
         method: "POST",

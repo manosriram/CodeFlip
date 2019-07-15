@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../DB");
 const jsonwt = require("jsonwebtoken");
+const knex = require("../Database/knex");
 
 const validateEmail = email => {
   var re = /\S+@\S+\.\S+/;
@@ -45,23 +45,20 @@ router.post("/register", (req, res) => {
     email: `${email}`,
     password: `${password}`
   };
-  let qry = "INSERT INTO USERSCHEMA SET ?";
 
-  db.query(qry, vls, (err, rest) => {
-    if (!err) {
-      return res.json({
-        success: true,
-        message: "User succesfully Registered."
-      });
-    } else {
+  knex("user")
+    .insert(vls)
+    .then(resp => {
+      return res.json({ success: true, message: "User Registered !" });
+    })
+    .catch(err => {
       if (err.code === "ER_DUP_ENTRY") {
         return res.json({
           success: false,
-          message: "User Already Registered."
+          message: "User already Registered."
         });
       }
-    }
-  });
+    });
 });
 
 router.post("/login", (req, res) => {
@@ -83,24 +80,31 @@ router.post("/login", (req, res) => {
     password: `${password}`
   };
 
-  let qry = `SELECT * FROM USERSCHEMA WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
+  let qry = `SELECT * FROM user WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
 
-  var token;
-  db.query(qry, (err, rest) => {
-    if (rest[0]) {
-      var payload = {
-        username: rest[0].USERNAME,
-        email: rest[0].EMAIL
-      };
-      jsonwt.sign(payload, "sec1234", { expiresIn: 90000000 }, (err, token) => {
-        res.cookie("scTk", token, { maxAge: 90000000 });
-        return res.json({ success: true, message: "Logged In" });
-      });
-    }
-    if (!rest[0]) {
-      return res.json({ success: false, message: "No User Found." });
-    }
-  });
+  knex
+    .raw(qry)
+    .then(rest => {
+      if (rest[0][0]) {
+        var payload = {
+          username: rest[0][0].USERNAME,
+          email: rest[0][0].EMAIL
+        };
+        jsonwt.sign(
+          payload,
+          "sec1234",
+          { expiresIn: 90000000 },
+          (err, token) => {
+            res.cookie("scTk", token, { maxAge: 90000000 });
+            return res.json({ success: true, message: "Logged In" });
+          }
+        );
+      }
+      if (!rest[0]) {
+        return res.json({ success: false, message: "No User Found." });
+      }
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = router;

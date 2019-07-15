@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../DB");
 const jsonwt = require("jsonwebtoken");
+const knex = require("../Database/knex");
 
 router.get("/editCard", (req, res) => {});
 
@@ -13,22 +13,19 @@ router.get("/showCards", (req, res) => {
       const email = user.email;
 
       let qry =
-        "SELECT CARD.TITLE, CARD.CODE FROM CARD INNER JOIN USERSCHEMA ON CARD.CREATED_BY = '" +
+        "SELECT CARD.TITLE, CARD.CODE FROM CARD INNER JOIN user ON CARD.CREATED_BY = '" +
         email +
         "'";
 
-      db.query(qry, (err, rest) => {
-        if (!err) {
-          return res.json({ success: true, rest });
-        } else {
-          console.log(err);
-          return res.json({
-            success: false,
-            message: "Error Occured !",
-            statusCode: err.code
+      knex
+        .raw(qry)
+        .then(rest => {
+          const cards = rest[0].filter((card, cardIndex) => {
+            return cardIndex < rest[0].length / 2;
           });
-        }
-      });
+          return res.json({ success: true, rest: cards });
+        })
+        .catch(err => console.log(err));
     }
   });
 });
@@ -46,22 +43,15 @@ router.post("/addCard", (req, res) => {
     language: `${language}`
   };
 
-  let qry = "INSERT INTO CARD SET ?";
-
-  db.query(qry, vls, (err, rest) => {
-    if (!err) {
-      return res.json({
-        success: true,
-        message: "Card Added !"
-      });
-    } else {
+  knex("card")
+    .insert(vls)
+    .then(console.log("Inserted !"))
+    .catch(err => {
       console.log(err);
-      return res.json({
-        success: false,
-        message: "Error Occured."
-      });
-    }
-  });
+      return res.json({ success: false, message: "Error Occured !" });
+    });
+
+  return res.json({ success: true, message: "Card Added." });
 });
 
 module.exports = router;
