@@ -46,7 +46,7 @@ router.post("/register", (req, res) => {
     password: `${password}`
   };
 
-  knex("user")
+  knex("userschema")
     .insert(vls)
     .then(resp => {
       return res.json({ success: true, message: "User Registered !" });
@@ -80,7 +80,7 @@ router.post("/login", (req, res) => {
     password: `${password}`
   };
 
-  let qry = `SELECT * FROM user WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
+  let qry = `SELECT * FROM userschema WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
 
   knex
     .raw(qry)
