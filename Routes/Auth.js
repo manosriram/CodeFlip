@@ -86,7 +86,7 @@ router.post("/login", (req, res) => {
     .raw(qry)
     .then(rest => {
       console.log(rest);
-      if (rest[0].length > 0) {
+      if (rest.rows.length > 0) {
         if (rest[0][0]) {
           var payload = {
             username: rest[0][0].USERNAME,
