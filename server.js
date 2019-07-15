@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express();
-require("./DB");
+const db = require("./DB");
 const cookieparser = require("cookie-parser");
 const path = require("path");
+const { Client } = require("pg");
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
+
+client.connect();
 
 app.use(express.json());
 app.use(cookieparser());
