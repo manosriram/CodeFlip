@@ -13,7 +13,7 @@ router.get("/showCards", (req, res) => {
       const email = user.email;
 
       let qry =
-        "SELECT CARD.TITLE, CARD.CODE FROM CARD INNER JOIN USER ON CARD.CREATED_BY = '" +
+        "SELECT CARD.TITLE, CARD.CODE FROM CARD INNER JOIN USERSCHEMA ON CARD.CREATED_BY = '" +
         email +
         "'";
 

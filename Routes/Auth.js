@@ -45,7 +45,7 @@ router.post("/register", (req, res) => {
     email: `${email}`,
     password: `${password}`
   };
-  let qry = "INSERT INTO USER SET ?";
+  let qry = "INSERT INTO USERSCHEMA SET ?";
 
   db.query(qry, vls, (err, rest) => {
     if (!err) {
@@ -83,7 +83,7 @@ router.post("/login", (req, res) => {
     password: `${password}`
   };
 
-  let qry = `SELECT * FROM USER WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
+  let qry = `SELECT * FROM USERSCHEMA WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
 
   var token;
   db.query(qry, (err, rest) => {
