@@ -48,7 +48,7 @@ router.post("/register", (req, res) => {
 
   knex("userschema")
     .insert(vls)
-    .then(resp => {
+    .then(() => {
       return res.json({ success: true, message: "User Registered !" });
     })
     .catch(err => {
@@ -85,26 +85,23 @@ router.post("/login", (req, res) => {
   knex
     .raw(qry)
     .then(rest => {
-      console.log(rest);
       if (rest.rows.length > 0) {
-        if (rest[0][0]) {
-          var payload = {
-            username: rest[0][0].USERNAME,
-            email: rest[0][0].EMAIL
-          };
-          jsonwt.sign(
-            payload,
-            "sec1234",
-            { expiresIn: 90000000 },
-            (err, token) => {
-              res.cookie("scTk", token, { maxAge: 90000000 });
-              return res.json({ success: true, message: "Logged In" });
-            }
-          );
-        }
-        if (!rest[0]) {
-          return res.json({ success: false, message: "No User Found." });
-        }
+        var payload = {
+          username: rest[0][0].USERNAME,
+          email: rest[0][0].EMAIL
+        };
+        jsonwt.sign(
+          payload,
+          "sec1234",
+          { expiresIn: 90000000 },
+          (err, token) => {
+            res.cookie("scTk", token, { maxAge: 90000000 });
+            return res.json({ success: true, message: "Logged In" });
+          }
+        );
+      }
+      if (!rest[0]) {
+        return res.json({ success: false, message: "No User Found." });
       }
     })
     .catch(err => console.log(err));
