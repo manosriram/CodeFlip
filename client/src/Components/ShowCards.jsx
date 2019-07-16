@@ -44,9 +44,7 @@ const ShowCards = props => {
       const resp = await fetch("/card/showCards");
       const data = await resp.json();
       setCardData(data.rest);
-      console.log(data.rest);
     };
-
     getUserCards();
     setSpinner(false);
   }, []);
@@ -59,7 +57,7 @@ const ShowCards = props => {
     );
   }
 
-  if (cardData.length == 0)
+  if (cardData.length == 0) {
     return (
       <>
         <Container>
@@ -67,7 +65,7 @@ const ShowCards = props => {
         </Container>
       </>
     );
-  else {
+  } else {
     return (
       <>
         <Container className={classes.root}>

@@ -18,15 +18,6 @@ router.get("/showCards", (req, res) => {
       knex
         .raw(qry)
         .then(rest => {
-          console.log(rest);
-          console.log(
-            "------------------------------------------------------------------------------------------------------"
-          );
-          console.log(rest.rows);
-          console.log(
-            "------------------------------------------------------------------------------------------------------"
-          );
-          console.log(rest.rows[0]);
           let cards = [];
           for (let t = 0; t < rest.rows.length; t++) {
             cards.push(rest.rows[t]);
@@ -54,9 +45,8 @@ router.post("/addCard", (req, res) => {
 
   knex("card")
     .insert(vls)
-    .then(resp => {
-      console.log("Inserted !");
-      console.log(resp);
+    .then(() => {
+      console.log(`Card Inserted by ${userEmail}`);
       return res.json({ success: true, message: "Card Added." });
     })
     .catch(err => {

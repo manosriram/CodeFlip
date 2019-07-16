@@ -87,8 +87,10 @@ const AddCard = props => {
             />
             <br />
             <br />
-            <select name="language" id="lng" defaultValue="javascript">
-              <option value="javascript">Javascript</option>
+            <select name="language" id="lng">
+              <option value="javascript" selected="javascript">
+                Javascript
+              </option>
               <option value="c++">C++</option>
               <option value="c">C</option>
               <option value="python">Python</option>
