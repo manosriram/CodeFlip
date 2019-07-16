@@ -44,6 +44,7 @@ const ShowCards = props => {
       const resp = await fetch("/card/showCards");
       const data = await resp.json();
       setCardData(data.rest);
+      console.log(data.rest);
     };
     getUserCards();
     setSpinner(false);
