@@ -73,12 +73,12 @@ const ShowCards = props => {
         <Container className={classes.root}>
           <div className={classes.root}>
             <Paper square elevation={0} className={classes.header}>
-              <Typography>{cardData[activeStep].TITLE}</Typography>
+              <Typography>{cardData[activeStep].title}</Typography>
             </Paper>
             <br />
             <div id="cardCode">
-              <Highlight language={cardData[activeStep].LANGUAGE}>
-                {cardData[activeStep].CODE}
+              <Highlight language={cardData[activeStep].language}>
+                {cardData[activeStep].code}
               </Highlight>
             </div>
             <MobileStepper

@@ -3,8 +3,6 @@ const router = express.Router();
 const jsonwt = require("jsonwebtoken");
 const knex = require("../Database/knex");
 
-router.get("/editCard", (req, res) => {});
-
 router.get("/showCards", (req, res) => {
   jsonwt.verify(req.cookies.scTk, "sec1234", (err, user) => {
     if (!user) {
@@ -13,7 +11,7 @@ router.get("/showCards", (req, res) => {
       const email = user.email;
 
       let qry =
-        "SELECT CARD.TITLE, CARD.CODE FROM CARD INNER JOIN userschema ON CARD.CREATED_BY = '" +
+        "SELECT card.title, card.code FROM card INNER JOIN userschema ON card.created_by = '" +
         email +
         "'";
 
@@ -51,8 +49,9 @@ router.post("/addCard", (req, res) => {
 
   knex("card")
     .insert(vls)
-    .then(() => {
+    .then(resp => {
       console.log("Inserted !");
+      console.log(resp);
       return res.json({ success: true, message: "Card Added." });
     })
     .catch(err => {
