@@ -19,9 +19,9 @@ router.get("/showCards", (req, res) => {
         .raw(qry)
         .then(rest => {
           let cards = [];
-          for (let t = 0; t < rest.rows.length; t++) {
+          for (let t = 0; t <= rest.rows.length; t++) {
             cards.push(rest.rows[t]);
-            t += 3;
+            t += 4;
           }
           return res.json({ success: true, rest: cards });
         })
