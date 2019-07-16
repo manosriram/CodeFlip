@@ -20,8 +20,8 @@ router.get("/showCards", (req, res) => {
       knex
         .raw(qry)
         .then(rest => {
-          const cards = rest[0].filter((card, cardIndex) => {
-            return cardIndex < rest[0].length / 2;
+          const cards = rest.rows[0].filter((card, cardIndex) => {
+            return cardIndex < rest.rows[0].length / 2;
           });
           return res.json({ success: true, rest: cards });
         })
