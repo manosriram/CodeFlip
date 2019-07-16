@@ -22,8 +22,9 @@ router.get("/showCards", (req, res) => {
             cardCount = rest.rows ? rest.rows.length / 4 : 0;
           let ind = 0;
           while (cardCount > 0) {
-            cards.push(rest.rows[ind * 4]);
-            ind++;
+            ind == 0 ? cards.push(rest.rows[0]) : cards.push(rest.rows[ind]);
+
+            ind += 4;
             cardCount -= 1;
           }
 
