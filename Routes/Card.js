@@ -27,7 +27,12 @@ router.get("/showCards", (req, res) => {
             "------------------------------------------------------------------------------------------------------"
           );
           console.log(rest.rows[0]);
-          return res.json({ success: true, rest: rest.rows });
+          let cards = [];
+          for (let t = 0; t < rest.rows.length; t++) {
+            cards.push(rest.rows[t]);
+            t += 4;
+          }
+          return res.json({ success: true, rest: cards });
         })
         .catch(err => console.log(err));
     }
