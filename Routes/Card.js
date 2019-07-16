@@ -30,7 +30,7 @@ router.get("/showCards", (req, res) => {
           );
           console.log(rest.rows[0]);
           const cards = rest.rows.filter((card, cardIndex) => {
-            return cardIndex < rest.rows[0].length / 2;
+            return cardIndex < rest.rows.length / 2;
           });
           return res.json({ success: true, rest: cards });
         })
