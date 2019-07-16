@@ -27,13 +27,19 @@ const Register = () => {
   const classes = useStyles();
   const [userData, setUserData] = React.useState({});
   const [message, setMessage] = React.useState("");
+  const [isSpinning, setSpinner] = React.useState(true);
 
   const handleChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    setSpinner(false);
+  });
+
   const handleSubmit = async e => {
     e.preventDefault();
+    setSpinner(true);
     const resp = await fetch("/auth/register", {
       method: "POST",
       headers: Headers.headers,
@@ -41,7 +47,16 @@ const Register = () => {
     });
     const data = await resp.json();
     setMessage(data.message);
+    setSpinner(false);
   };
+
+  if (isSpinning) {
+    return (
+      <div className="spinner-border" role="status" id="spinner">
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
+  }
 
   return (
     <>

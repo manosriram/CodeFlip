@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Typography, makeStyles, Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { StyledInput } from "../Styles/StyledComp";
@@ -27,20 +27,26 @@ const Login = props => {
   const classes = useStyles();
   const [userData, setUserData] = React.useState({});
   const [message, setMessage] = React.useState("");
+  const [isSpinning, setSpinner] = React.useState(true);
 
   const handleChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    setSpinner(false);
+  });
+
   const handleSubmit = async e => {
     e.preventDefault();
-
+    setSpinner(true);
     const resp = await fetch("/auth/login", {
       method: "POST",
       headers: Headers.headers,
       body: JSON.stringify({ userData })
     });
     const data = await resp.json();
+    setSpinner(false);
     data.success ? (window.location = "/") : setMessage(data.message);
   };
 

@@ -103,8 +103,8 @@ router.post("/login", (req, res) => {
       );
       if (rest.rows.length > 0) {
         var payload = {
-          username: rest[0][0].USERNAME,
-          email: rest[0][0].EMAIL
+          username: rest.rows[0].username,
+          email: rest.rows[0].email
         };
         jsonwt.sign(
           payload,
@@ -116,7 +116,7 @@ router.post("/login", (req, res) => {
           }
         );
       }
-      if (!rest[0]) {
+      if (!rest.rows) {
         return res.json({ success: false, message: "No User Found." });
       }
     })
