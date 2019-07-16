@@ -18,11 +18,14 @@ router.get("/showCards", (req, res) => {
       knex
         .raw(qry)
         .then(rest => {
-          let cards = [];
-          for (let t = 0; t <= rest.rows.length; t++) {
-            cards.push(rest.rows[t]);
-            t += 4;
+          let cards = [],
+            cardCount = rest.rows.length / 4;
+          let ind = 0;
+          while (cardCount--) {
+            cards.push(rest.rows[ind * 4]);
+            ind++;
           }
+
           return res.json({ success: true, rest: cards });
         })
         .catch(err => console.log(err));
