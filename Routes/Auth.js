@@ -101,7 +101,7 @@ router.post("/login", (req, res) => {
       console.log(
         "------------------------------------------------------------------------------------"
       );
-      if (rest[0].length > 0) {
+      if (rest.rows.length > 0) {
         var payload = {
           username: rest[0][0].USERNAME,
           email: rest[0][0].EMAIL
