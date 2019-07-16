@@ -21,7 +21,7 @@ router.get("/showCards", (req, res) => {
           let cards = [];
           for (let t = 0; t < rest.rows.length; t++) {
             cards.push(rest.rows[t]);
-            t += 4;
+            t += 3;
           }
           return res.json({ success: true, rest: cards });
         })
