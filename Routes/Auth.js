@@ -75,32 +75,11 @@ router.post("/login", (req, res) => {
   if (password.length <= 3)
     return res.json({ success: false, message: "Password Too Short !" });
 
-  let vls = {
-    email: `${email}`,
-    password: `${password}`
-  };
-
   let qry = `SELECT * FROM userschema WHERE EMAIL = '${email}' AND PASSWORD = '${password}'`;
 
   knex
     .raw(qry)
     .then(rest => {
-      console.log(rest[0]);
-      console.log(
-        "------------------------------------------------------------------------------------"
-      );
-      console.log(rest.rows);
-      console.log(
-        "------------------------------------------------------------------------------------"
-      );
-      console.log(rest.rows[0]);
-      console.log(
-        "------------------------------------------------------------------------------------"
-      );
-      console.log(rest.Results);
-      console.log(
-        "------------------------------------------------------------------------------------"
-      );
       if (rest.rows.length > 0) {
         var payload = {
           username: rest.rows[0].username,
@@ -115,8 +94,7 @@ router.post("/login", (req, res) => {
             return res.json({ success: true, message: "Logged In" });
           }
         );
-      }
-      if (!rest.rows) {
+      } else {
         return res.json({ success: false, message: "No User Found." });
       }
     })

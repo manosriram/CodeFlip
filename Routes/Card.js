@@ -29,10 +29,7 @@ router.get("/showCards", (req, res) => {
             "------------------------------------------------------------------------------------------------------"
           );
           console.log(rest.rows[0]);
-          const cards = rest.rows.filter((card, cardIndex) => {
-            return cardIndex < rest.rows.length / 2;
-          });
-          return res.json({ success: true, rest: cards });
+          return res.json({ success: true, rest: rest.rows });
         })
         .catch(err => console.log(err));
     }
@@ -59,7 +56,6 @@ router.post("/addCard", (req, res) => {
       return res.json({ success: true, message: "Card Added." });
     })
     .catch(err => {
-      console.log(err);
       return res.json({ success: false, message: "Error Occured !" });
     });
 });
