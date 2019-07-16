@@ -11,7 +11,7 @@ router.get("/showCards", (req, res) => {
       const email = user.email;
 
       let qry =
-        "SELECT card.title, card.code FROM card INNER JOIN userschema ON card.created_by = '" +
+        "SELECT card.title, card.code, card.language FROM card INNER JOIN userschema ON card.created_by = '" +
         email +
         "'";
 
