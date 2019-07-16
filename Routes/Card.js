@@ -21,11 +21,11 @@ router.get("/showCards", (req, res) => {
           let cards = [],
             cardCount = rest.rows ? rest.rows.length / 4 : 0;
           let ind = 0;
+          console.log(rest.rows);
           while (cardCount > 0) {
-            ind == 0 ? cards.push(rest.rows[0]) : cards.push(rest.rows[ind]);
-
+            cards.push(rest.rows[ind]);
             ind += 4;
-            cardCount -= 1;
+            cardCount--;
           }
 
           return res.json({ success: true, rest: cards });
