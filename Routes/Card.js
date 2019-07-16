@@ -29,7 +29,7 @@ router.get("/showCards", (req, res) => {
             "------------------------------------------------------------------------------------------------------"
           );
           console.log(rest.rows[0]);
-          const cards = rest.rows[0].filter((card, cardIndex) => {
+          const cards = rest.rows.filter((card, cardIndex) => {
             return cardIndex < rest.rows[0].length / 2;
           });
           return res.json({ success: true, rest: cards });
@@ -52,7 +52,7 @@ router.post("/addCard", (req, res) => {
     language: `${language}`
   };
 
-  knex("userschema")
+  knex("card")
     .insert(vls)
     .then(() => {
       console.log("Inserted !");
