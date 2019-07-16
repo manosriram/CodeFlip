@@ -20,6 +20,15 @@ router.get("/showCards", (req, res) => {
       knex
         .raw(qry)
         .then(rest => {
+          console.log(rest);
+          console.log(
+            "------------------------------------------------------------------------------------------------------"
+          );
+          console.log(rest.rows);
+          console.log(
+            "------------------------------------------------------------------------------------------------------"
+          );
+          console.log(rest.rows[0]);
           const cards = rest.rows[0].filter((card, cardIndex) => {
             return cardIndex < rest.rows[0].length / 2;
           });
@@ -45,13 +54,14 @@ router.post("/addCard", (req, res) => {
 
   knex("userschema")
     .insert(vls)
-    .then(console.log("Inserted !"))
+    .then(() => {
+      console.log("Inserted !");
+      return res.json({ success: true, message: "Card Added." });
+    })
     .catch(err => {
       console.log(err);
       return res.json({ success: false, message: "Error Occured !" });
     });
-
-  return res.json({ success: true, message: "Card Added." });
 });
 
 module.exports = router;
