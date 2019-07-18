@@ -10,16 +10,17 @@ router.get("/showCards", (req, res) => {
     } else {
       const email = user.email;
 
-      let qry =
-        "SELECT card.title, card.code, card.language FROM card INNER JOIN userschema ON card.created_by = '" +
-        email +
-        "'";
+      let qry = `SELECT card.title, card.code, card.language FROM card WHERE card.created_by = ${email}`;
+
+      // let qry =
+      //   "SELECT card.title, card.code, card.language FROM card INNER JOIN userschema ON card.created_by = '" +
+      //   email +
+      //   "'";
 
       knex
         .raw(qry)
         .then(rest => {
           console.log(rest.rows);
-
           console.log(
             "-----------------------------------------------------------------"
           );
