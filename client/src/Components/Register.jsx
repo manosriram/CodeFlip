@@ -73,7 +73,7 @@ const Register = () => {
               <br />
               <br />
               <StyledInput
-                type="text"
+                type="email"
                 placeholder="Email Address."
                 name="email"
               />

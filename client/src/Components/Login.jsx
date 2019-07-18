@@ -58,7 +58,7 @@ const Login = props => {
           <Paper className={classes.root} id="paper">
             <form onChange={handleChange}>
               <StyledInput
-                type="text"
+                type="email"
                 placeholder="Email Address."
                 name="email"
               />
