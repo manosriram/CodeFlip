@@ -18,6 +18,12 @@ router.get("/showCards", (req, res) => {
       knex
         .raw(qry)
         .then(rest => {
+          console.log(rest.rows);
+
+          console.log(
+            "-----------------------------------------------------------------"
+          );
+          console.log(rest);
           return res.json({ success: true, rest: rest.rows });
         })
         .catch(err => console.log(err));
