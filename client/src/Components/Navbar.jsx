@@ -39,6 +39,10 @@ const loggedIcons = [
   {
     label: "logout",
     src: "https://img.icons8.com/ios-filled/50/000000/logout-rounded-left.png"
+  },
+  {
+    label: "about",
+    src: "https://img.icons8.com/ios-filled/50/000000/about.png"
   }
 ];
 
@@ -54,6 +58,10 @@ const nonLoggedIcons = [
   {
     label: "register",
     src: "https://img.icons8.com/ios-filled/50/000000/edit-user-male.png"
+  },
+  {
+    label: "about",
+    src: "https://img.icons8.com/ios-filled/50/000000/about.png"
   }
 ];
 
@@ -192,49 +200,51 @@ const Navbar = props => {
         <Divider />
         {logStat && (
           <List>
-            {["Home", "Add Card", "Show Cards", "Logout"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon
-                  id="icn"
-                  onClick={() => {
-                    text = text.trim().toLowerCase();
-                    if (text === "add card") text = "addCard";
-                    else if (text === "show cards") text = "showCards";
-                    else if (text === "home") text = "";
-                    if (text !== "logout") {
-                      props.history.push(`/${text}`);
-                      handleDrawerClose();
-                    }
-                    if (text === "logout") Logout();
-                  }}
-                >
-                  <img
-                    src={loggedIcons[index].src}
-                    alt={loggedIcons[index].label}
+            {["Home", "Add Card", "Show Cards", "Logout", "About"].map(
+              (text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon
+                    id="icn"
+                    onClick={() => {
+                      text = text.trim().toLowerCase();
+                      if (text === "add card") text = "addCard";
+                      else if (text === "show cards") text = "showCards";
+                      else if (text === "home") text = "";
+                      if (text !== "logout") {
+                        props.history.push(`/${text}`);
+                        handleDrawerClose();
+                      }
+                      if (text === "logout") Logout();
+                    }}
+                  >
+                    <img
+                      src={loggedIcons[index].src}
+                      alt={loggedIcons[index].label}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    id="icnTxt"
+                    primary={text}
+                    onClick={() => {
+                      text = text.trim().toLowerCase();
+                      if (text === "add card") text = "addCard";
+                      else if (text === "show cards") text = "showCards";
+                      else if (text === "home") text = "";
+                      if (text !== "logout") {
+                        props.history.push(`/${text}`);
+                        handleDrawerClose();
+                      }
+                      if (text === "logout") Logout();
+                    }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  id="icnTxt"
-                  primary={text}
-                  onClick={() => {
-                    text = text.trim().toLowerCase();
-                    if (text === "add card") text = "addCard";
-                    else if (text === "show cards") text = "showCards";
-                    else if (text === "home") text = "";
-                    if (text !== "logout") {
-                      props.history.push(`/${text}`);
-                      handleDrawerClose();
-                    }
-                    if (text === "logout") Logout();
-                  }}
-                />
-              </ListItem>
-            ))}
+                </ListItem>
+              )
+            )}
           </List>
         )}
         {!logStat && (
           <List>
-            {["Home", "Login", "Register"].map((text, index) => (
+            {["Home", "Login", "Register", "About"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon
                   id="icn"

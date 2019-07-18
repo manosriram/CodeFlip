@@ -84,6 +84,9 @@ const Login = props => {
           </Paper>
         </Container>
       </Container>
+      <div id="footer">
+        <p>Made with ❤️ by Mano Sriram.</p>
+      </div>
     </>
   );
 };

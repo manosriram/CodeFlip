@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../Styles/App.css";
 
 const Index = () => {
-  const [loginStat, setLoginStat] = React.useState(false);
+  const [loginStat, setLoginStat] = React.useState(true);
   const [isSpinning, setSpinner] = React.useState(true);
 
   useEffect(() => {
@@ -56,13 +56,16 @@ const Index = () => {
             <Link to="/addCard" id="lnk">
               Add
             </Link>{" "}
-            a Card or View Look up your cards{" "}
+            a Card or Look up your cards{" "}
             <Link to="/showCards" id="lnk">
               here
             </Link>{" "}
             !
           </h4>
         </Container>
+        <div id="footer">
+          <p>Made with ❤️ by Mano Sriram.</p>
+        </div>
       </>
     );
   }

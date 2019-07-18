@@ -6,6 +6,7 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import AddCard from "./Components/AddCard";
 import ShowCards from "./Components/ShowCards";
+import About from "./Components/About";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route exact path="/register" component={Register} />
       <Route exact path="/addCard" component={AddCard} />
       <Route exact path="/showCards" component={ShowCards} />
+      <Route exact path="/about" component={About} />
     </BrowserRouter>
   );
 };

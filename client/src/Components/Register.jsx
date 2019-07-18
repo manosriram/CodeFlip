@@ -99,6 +99,9 @@ const Register = () => {
           </Paper>
         </Container>
       </Container>
+      <div id="footer">
+        <p>Made with ❤️ by Mano Sriram.</p>
+      </div>
     </>
   );
 };
