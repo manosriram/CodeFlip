@@ -73,6 +73,7 @@ const ShowCards = props => {
             <Paper square elevation={0} className={classes.header}>
               <Typography>{cardData[activeStep].title}</Typography>
             </Paper>
+            {console.log(cardData[activeStep])}
             <br />
             <div id="cardCode">
               <Highlight language={cardData[activeStep].language}>
